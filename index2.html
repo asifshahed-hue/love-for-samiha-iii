@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Love Protocol</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  height:100vh;
+  background:#020202;
+  color:#d1fff4;
+  font-family:"Courier New", monospace;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  overflow:hidden;
+}
+
+/* subtle moving background */
+body::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(0,255,200,.08), transparent 40%),
+    radial-gradient(circle at 80% 80%, rgba(255,77,109,.08), transparent 40%);
+  animation:drift 20s infinite alternate;
+}
+@keyframes drift{
+  to{transform:translate(30px, -30px)}
+}
+
+.terminal{
+  position:relative;
+  width:90%;
+  max-width:820px;
+  background:rgba(5,5,5,.9);
+  padding:28px;
+  border-radius:16px;
+  box-shadow:0 0 40px rgba(255,77,109,.25);
+  font-size:16px;
+  line-height:1.65;
+  z-index:2;
+}
+
+.cursor{
+  display:inline-block;
+  width:8px;
+  background:#d1fff4;
+  animation:blink 1s infinite;
+}
+@keyframes blink{50%{opacity:0}}
+
+.final{
+  margin-top:28px;
+  text-align:center;
+  font-size:22px;
+  color:#ff4d6d;
+  opacity:0;
+  animation:fadeIn 4s forwards;
+}
+@keyframes fadeIn{to{opacity:1}}
+</style>
+</head>
+
+<body>
+
+<div class="terminal" id="terminal"></div>
+
+<script>
+const lines = [
+  "Initializing secure connection...",
+  "Booting emotional_subsystem...",
+  "",
+  "Scanning the world...",
+  "One presence detected.",
+  "",
+  "Name: Samiha",
+  "Priority: Absolute",
+  "",
+  "Synchronizing heartbeats...",
+  "Encrypting trust...",
+  "Preserving every moment...",
+  "",
+  "for (everyTomorrow in life) {",
+  "   choose(Samiha);",
+  "   protect(Samiha);",
+  "   stay(Samiha);",
+  "}",
+  "",
+  "No termination condition found.",
+  "",
+  "System status: Stable."
+];
+
+let i=0,j=0;
+const speed=42;
+const terminal=document.getElementById("terminal");
+
+function type(){
+  if(i<lines.length){
+    if(j<lines[i].length){
+      terminal.innerHTML+=lines[i].charAt(j);
+      j++;
+      setTimeout(type,speed);
+    }else{
+      terminal.innerHTML+="<br>";
+      i++; j=0;
+      setTimeout(type, speed*7);
+    }
+  }else{
+    terminal.innerHTML+=`
+      <div class="final">
+        Samiha,<br><br>
+        In a world full of noise,<br>
+        you became my quiet certainty.<br><br>
+        Not a chapter.<br>
+        Not a phase.<br>
+        <strong>You are the story.</strong> ❤️
+      </div>
+    `;
+  }
+}
+type();
+</script>
+
+</body>
+</html>
